@@ -1,0 +1,68 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">Studentų grupės</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mt-3" *ngFor="let groupInfo of grupesData">
+                        <div class="card-header bg-info text-white">
+                            Grupė: {{groupInfo.group}} | Miestas: {{groupInfo.location}} | Startas: {{groupInfo.start_date}}
+                        </div>
+                        <div class="card-body">
+                            <!-- <app-studentai (dalyvaujaEmitter)="dalyvReg($event)" (nedalyvaujaEmitter)="nedalyvReg($event)" [students]="groupInfo.students" [groupName]="groupInfo.group" [groupLocation]="groupInfo.location"></app-studentai> -->
+                            <app-studentai (arDalyvaujaEmitter)="dalyviuRusiavimas($event)" [students]="groupInfo.students" [groupName]="groupInfo.group" [groupLocation]="groupInfo.location"></app-studentai>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header mb-3" (click)="pridetiVisible = !pridetiVisible;">Pridėti naują grupę</div>
+        <div class="card-body" *ngIf="pridetiVisible">
+            <div class="mb-3">
+                <label class="form-label">Grupės pavadinimas</label>
+                <input type="text" class="form-control" #groupName>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Grupės miestas</label>
+                <input type="text" class="form-control" #groupCity>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Mokslo pradžios data</label>
+                <input type="date" value="" class="form-control" #groupStarttime>
+            </div>
+            <button class="btn btn-success" (click)="addGroup(groupName, groupCity, groupStarttime)">Pridėti</button>
+        </div>
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header bg-success text-white">Dalyvaujantys studentai <span class="badge bg-light text-black" >{{dalyvaujantys.length}}</span></div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let dalyvis of dalyvaujantys">
+                        {{dalyvis.name}} {{dalyvis.surname}}  <span class="badge bg-info mx-1">{{dalyvis.groupName}}</span> <span class="badge bg-info mx-1">{{dalyvis.groupLocation}}</span>
+                    </li>
+                </ul>
+            </div>
+        
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header bg-danger text-white">Nedalyvaujantys studentai <span class="badge bg-light text-black">{{nedalyvaujantys.length}}</span></div>
+            <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let nedalyvis of nedalyvaujantys">
+                        {{nedalyvis.name}} {{nedalyvis.surname}}  <span class="badge bg-info mx-1">{{nedalyvis.groupName}}</span> <span class="badge bg-info mx-1">{{nedalyvis.groupLocation}}</span>
+                    </li>
+                </ul>
+            </div>
+        
+    </div>
+</div>
+
